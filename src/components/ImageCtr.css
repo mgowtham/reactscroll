@@ -1,0 +1,20 @@
+.image-view {
+    width: 50%;
+}
+
+.hide {
+    visibility: hidden;
+}
+.img-ctr {
+    position: relative;
+}
+.img-ctr h4 {
+    position: absolute;
+    width: 50%;
+    background: white;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    opacity: 0.9;
+    padding-top: 10%;
+}

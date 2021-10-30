@@ -1,0 +1,25 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.close-modal {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+
+
+.infinite-scroll-component  {
+   display: grid;
+   grid-template-columns: auto auto;
+}
+
+@media screen  and (min-width: 600px)  {
+  .infinite-scroll-component  {
+    grid-template-columns: auto auto auto auto auto;
+  }
+}
