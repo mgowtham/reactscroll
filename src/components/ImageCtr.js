@@ -24,15 +24,16 @@ function ImageView(props) {
 
   let imgURL = useMemo(() => {
       let url = ''
+      let downloadUrl = image && image.download_url;
       let blurNum = Number(blur);
       if (blurNum && showGray) {
-         return `${image.download_url}/?grayscale&blur=${blur}` 
+         return `${downloadUrl}/?grayscale&blur=${blur}` 
       } else if (blurNum) {
-        return `${image.download_url}/?blur=${blur}` 
+        return `${downloadUrl}/?blur=${blur}` 
       } else if (showGray) {
-        return `${image.download_url}/?grayscale` 
+        return `${downloadUrl}/?grayscale` 
       }
-      return image.download_url
+      return downloadUrl
   }, [showGray, blur])
 
   return (

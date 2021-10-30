@@ -88,6 +88,7 @@ export default function App() {
 
   function closeModal() {
     setModalConf(null)
+    setmodalGray(null)
   }
 
   function setBlurConf(event) {
@@ -123,7 +124,7 @@ export default function App() {
           <button class="close-modal" onClick={closeModal}> X </button>
             <label for="quantity">Set blur (between 1 and 10):</label>
             <input onChange={setBlurConf} type="range" id="volume" min="0" max="10" defaultValue="0" step="1"/>
-            <GrayScale updateGray={setmodalGrayConf} />
+            <GrayScale defaultValue={isGray} updateGray={setmodalGrayConf} />
 
             
           
