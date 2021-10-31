@@ -8,3 +8,5 @@ cd reactscroll
 npm i
 
 npm run devstart
+
+Tested in chrome Version 95.0.4638.54 
