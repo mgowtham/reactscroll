@@ -15,7 +15,7 @@ button, input[type=checkbox] {
 header {
   position: fixed;
     height: 132px;
-    z-index: 1;
+    z-index: 6;
     background: white;
     width: 100%;
     left: 0;
