@@ -21,8 +21,17 @@ header {
     padding: 10px;
 }
 
+.scroller-ctr {
+  position: fixed;
+  top: 150px;
+}
+
 .infinite-scroll-component__outerdiv {
   margin-top: 150px;
+}
+
+.ReactModal__Content {
+  top: 164px !important;
 }
 
 .close-modal {
@@ -30,10 +39,14 @@ header {
   top: 5px;
   right: 5px;
   border-radius: 50%;
-  background: red;
+  background: white;
   border: 0px;
   padding-top: 5px;
+  color: black;
+  cursor: pointer;
+  font-weight: bold;
 }
+
 .img-holder {
   width: 200px;
   height: 200px;

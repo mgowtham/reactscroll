@@ -168,15 +168,16 @@ export default function App() {
         <h1>demo: react-infinite-scroll-component</h1>
         <GrayScale defaultValue={isGray} updateGray={updateChecked} />
       </header>
-      
-        <InfiniteScroll
-          dataLength={images.length}
-          next={  fetchMoreData}
-          hasMore={true}
-          loader={<h4>Loading...</h4>}
-        >
-          <ImageCtr images={images} />
-        </InfiniteScroll>
+          <InfiniteScroll
+            style={{top: '150px'}}
+              dataLength={images.length}
+              next={  fetchMoreData}
+              hasMore={true}
+              loader={<h4>Loading...</h4>}
+            >
+              <ImageCtr images={images} />
+            </InfiniteScroll>       
+ 
       </div>
     </Gray.Provider>
 
