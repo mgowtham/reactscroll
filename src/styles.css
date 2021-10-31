@@ -8,6 +8,9 @@
 .gray-container {
   margin: 10px 0;
 }
+button, input[type=checkbox] {
+  cursor: pointer;
+}
 
 header {
   position: fixed;
@@ -39,9 +42,7 @@ label {
 .infinite-scroll-component__outerdiv {
   margin-top: 150px;
 }
-.downloader {
-  padding-left: 36px;
-}
+
 .ReactModal__Content {
   top: 164px !important;
 }
