@@ -5,6 +5,7 @@ import Gray from "../contexts/Grayscale";
 function ImageView(props) {
   const { image , blur, modalGray, showDownlodLink, showDownloader} = props;
   const [isLoading, setLoading] = useState(true)
+  const [zoom, setZoom] = useState(1)
   const {isGray, setModalConf} =  useContext(Gray);
   async function downloadImage() {
      let imageSrc = imgURL;
@@ -21,6 +22,7 @@ function ImageView(props) {
   }
 
   let showGray = modalGray !== null ? modalGray : isGray;
+  let zoomStyle = { transform: `scale(${zoom})`, left: `${(zoom - 1) * 50}%`, top: `${(zoom - 1) * 50}%`}
 
   let imgURL = useMemo(() => {
       let url = ''
@@ -36,10 +38,25 @@ function ImageView(props) {
       return downloadUrl
   }, [showGray, blur])
 
+  function zoomIn() {
+     setZoom(zoom + 1)
+  }
+
+  function zoomOut() {
+    if (zoom !== 1) {
+      setZoom(zoom - 1)
+    }
+   
+  }
+
   return (
     <div className='img-ctr'>
        <h4 className={isLoading ? '' : 'hide'}> Loading </h4>
-       <img class="image-view" onLoad={() => setLoading(false)} src={imgURL} alt="Sorry" />
+       <div className='img-holder'>
+         <img style={zoomStyle} class="image-view" onLoad={() => setLoading(false)} src={imgURL} alt="Sorry" />
+       </div>
+       <button onClick={zoomIn}>+</button>
+       <button onClick={zoomOut}>-</button>
       {showDownloader && 
       <a  onClick={downloadImage} download>Download image</a>
       }
