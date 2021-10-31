@@ -30,6 +30,12 @@ label {
   margin-right: 10px;
 }
 
+.modal-ctr, .modal-ctr .img-ctr {
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
 .infinite-scroll-component__outerdiv {
   margin-top: 150px;
 }
@@ -38,7 +44,6 @@ label {
 }
 .ReactModal__Content {
   top: 164px !important;
-  padding-left: 45% !important;
 }
 
 .close-modal {

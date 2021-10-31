@@ -8,6 +8,8 @@ import GrayScale from "./components/GreyScale";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Modal from 'react-modal';
 const {ImageCtr, ImageView} = ImgConf;
+import { useBeforeunload } from 'react-beforeunload';
+
 
 
 export default function App() {
@@ -43,12 +45,7 @@ export default function App() {
     sessionStorage.setItem('reactScroll', JSON.stringify(userState))
 
   }
-  useEffect(() => {
-      window.addEventListener('resize', handleWindowSizeChange);
-      window.addEventListener('beforeunload', setLocalState)
-      window.removeEventListener('resize', handleWindowSizeChange);
-  }, []);
-  
+
   let isMobile = (width <= 768);
 
   
@@ -63,14 +60,7 @@ export default function App() {
     let totalImages = [...images, ...imageColl.data]
     setImages(totalImages);
   }
-  useEffect(() => {
-    let noofInitImages =  isMobile ?  CONFIG.initPageRows * CONFIG.mobile.noOfImginRow : CONFIG.initPageRows * CONFIG.deskTop.noOfImginRow
-    if (localState.scrollTop) {
-      window.scrollTo(0, localState.scrollTop)
-     } else {
-      fetchImages({page: 1, limit: noofInitImages});
-     }
-  }, []);
+ 
 
   
   function fetchMoreData() {
@@ -93,6 +83,23 @@ export default function App() {
       setmodalGray(value)
   }
 
+  useBeforeunload(() => {
+    setLocalState()
+    window.removeEventListener('resize', handleWindowSizeChange);
+  })
+
+  useEffect(() => {
+    let noofInitImages =  isMobile ?  CONFIG.initPageRows * CONFIG.mobile.noOfImginRow : CONFIG.initPageRows * CONFIG.deskTop.noOfImginRow
+    window.addEventListener('resize', handleWindowSizeChange);
+   
+    if (localState.scrollTop) {
+      window.scrollTo(0, localState.scrollTop)
+     } else {
+      fetchImages({page: 1, limit: noofInitImages});
+     }
+    
+  }, []);
+
   return (
     <Gray.Provider value={ {isGray, setGray, setModalConf, modalConf} }>
      
@@ -102,13 +109,17 @@ export default function App() {
       <Modal
         isOpen={modalConf}
       >
+        <div className='modal-ctr'>
           <ImageView showDownlodLink={true} showDownloader={true} image={modalConf} blur={blur} modalGray={modalGray}/>
 
           <button class="close-modal" onClick={closeModal}> X </button>
-            <label for="quantity">Set blur (between 1 and 10):</label>
-            <input onChange={setBlurConf} type="range" id="volume" min="0" max="10" defaultValue="0" step="1"/>
-            <GrayScale defaultValue={isGray} updateGray={setmodalGrayConf} />
+          <label for="quantity">Set blur (between 1 and 10):</label>
+          <input onChange={setBlurConf} type="range" id="volume" min="0" max="10" defaultValue="0" step="1"/>
+          <GrayScale defaultValue={isGray} updateGray={setmodalGrayConf} />
 
+
+        </div>
+          
             
           
            
