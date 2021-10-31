@@ -11,7 +11,7 @@
 
 header {
   position: fixed;
-    height: 100px;
+    height: 132px;
     z-index: 1;
     background: white;
     width: 100%;
@@ -22,7 +22,7 @@ header {
 }
 
 .infinite-scroll-component__outerdiv {
-  margin-top: 141px;
+  margin-top: 150px;
 }
 
 .close-modal {
