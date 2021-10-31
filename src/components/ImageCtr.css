@@ -18,3 +18,26 @@
     opacity: 0.9;
     padding-top: 10%;
 }
+
+.img-ctr>* {
+    margin: 10px 0;
+}
+
+.image-url {
+    color: blue;
+}
+
+.img-container-li {
+    text-align: center;
+    width: 200px;
+}
+
+a {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
+
+.img-container-li > * {
+    margin: 10px 0;
+}

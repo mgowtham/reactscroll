@@ -9,10 +9,11 @@ function GreyScale(props) {
       updateGray(event.currentTarget.checked)
     }
     return (
-      <Fragment>
+      <div className="gray-container">
+
          <input onChange={updateChecked} type="checkbox" id="vehicle1" name="vehicle1" checked={checkStatus}/>
          <label for="vehicle1"> Enable gray scale </label><br></br>
-      </Fragment>  
+      </div>  
      
     );
 }

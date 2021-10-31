@@ -55,16 +55,19 @@ function ImageView(props) {
        <div className='img-holder'>
          <img style={zoomStyle} class="image-view" onLoad={() => setLoading(false)} src={imgURL} alt="Sorry" />
        </div>
-       <button onClick={zoomIn}>+</button>
-       <button onClick={zoomOut}>-</button>
+       <div className='zoomer'>
+        <button onClick={zoomIn}>+</button>
+        <button onClick={zoomOut}>-</button>
+       </div>
+      
       {showDownloader && 
-      <a  onClick={downloadImage} download>Download image</a>
+      <a onClick={downloadImage} download>Download image</a>
       }
        {showDownlodLink && 
            (
              <Fragment>
-              <div>The image link is provided below </div>
-              <div> {imgURL} </div>
+              <div>The image link is provided below. You can copy and share it </div>
+              <div className='image-url'> {imgURL} </div>
              </Fragment> 
               
 
@@ -84,13 +87,13 @@ function ImageCtr(props) {
 
   const imageComp = images.map((image, i) => {
     return (
-      <div key={i} className="img-ctr">
+      <div key={i} className="img-container-li">
         <ImageView modalGray={null} image={image} />
         <div>{image.author}</div>
         <button onClick={() => setModalConf(image)}>Open in modal</button>
 
       </div>
-    );
+    )
   });
   return <Fragment>{imageComp}</Fragment>;
 }

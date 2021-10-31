@@ -5,10 +5,18 @@
   grid-template-columns: auto auto;
 }
 
+.gray-container {
+  margin: 10px 0;
+}
+
 .close-modal {
   position: absolute;
   top: 5px;
   right: 5px;
+  border-radius: 50%;
+  background: red;
+  border: 0px;
+  padding-top: 5px;
 }
 .img-holder {
   width: 200px;
@@ -21,6 +29,16 @@
   width: 200px;
   height: 200px;
   position: absolute;
+}
+
+.zoomer {
+  width: 200px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.zoomer button {
+   margin-right: 10px;
 }
 
 
