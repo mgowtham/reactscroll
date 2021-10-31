@@ -12,11 +12,18 @@ const {ImageCtr, ImageView} = ImgConf;
 
 
 export default function App() {
-  const [images, setImages] = useState([]);
+  let localState = [];
+  if (localStorage.getItem('reactScroll')) {
+    localState = JSON.parse(localStorage.getItem('reactScroll'))
+  }
+  let initialImages = localState.images || []
+  let localGrayState = localState.isGray || false
+ 
+  const [images, setImages] = useState(initialImages);
   const [page, setPage] = useState(1);
   const [width, setWidth] = useState(window.innerWidth);
   const [imageCount, setImageCount] = useState(0);
-  const [isGray, setGray] = useState(false);
+  const [isGray, setGray] = useState(localGrayState);
   const [modalConf, setModalConf] = useState(null);
   const [blur, setBlur] = useState(0);
   const [modalGray, setmodalGray] = useState(null);
@@ -27,13 +34,35 @@ export default function App() {
        setGray(val)
   }
 
+   let r = isGray;
   function handleWindowSizeChange() {
       setWidth(window.innerWidth);
   }
+
+  function setLocalState() {
+    let userState = {
+      scrollTop: window.scrollY,
+      images,
+      isGray
+    }
+    console.log('isGrayyy')
+    console.log(isGray)
+    console.log(images)
+    localStorage.setItem('reactScroll', JSON.stringify(userState))
+
+  }
   useEffect(() => {
       window.addEventListener('resize', handleWindowSizeChange);
+      window.addEventListener('beforeunload', () => { 
+       
+      })
+      window.removeEventListener('resize', setLocalState);
+        
+     
+       
       return () => {
-          window.removeEventListener('resize', handleWindowSizeChange);
+        console.log('unmountin')
+       
       }
   }, []);
   
@@ -58,8 +87,11 @@ export default function App() {
   useEffect(() => {
     console.log("imageColl");
     let noofInitImages =  isMobile ?  CONFIG.initPageRows * CONFIG.mobile.noOfImginRow : CONFIG.initPageRows * CONFIG.deskTop.noOfImginRow
-    
-    fetchImages({page: 1, limit: noofInitImages});
+    if (localState.scrollTop) {
+      window.scrollTo(0, localState.scrollTop)
+     } else {
+      fetchImages({page: 1, limit: noofInitImages});
+     }
   }, []);
 
   // function get
@@ -134,7 +166,7 @@ export default function App() {
    
 
         <h1>demo: react-infinite-scroll-component</h1>
-        <GrayScale  updateGray={updateChecked} />
+        <GrayScale defaultValue={isGray} updateGray={updateChecked} />
         <InfiniteScroll
           dataLength={images.length}
           next={  fetchMoreData}
