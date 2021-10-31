@@ -13,8 +13,8 @@ const {ImageCtr, ImageView} = ImgConf;
 
 export default function App() {
   let localState = [];
-  if (localStorage.getItem('reactScroll')) {
-    localState = JSON.parse(localStorage.getItem('reactScroll'))
+  if (sessionStorage.getItem('reactScroll')) {
+    localState = JSON.parse(sessionStorage.getItem('reactScroll'))
   }
   let initialImages = localState.images || []
   let localGrayState = localState.isGray || false
@@ -48,7 +48,7 @@ export default function App() {
     console.log('isGrayyy')
     console.log(isGray)
     console.log(images)
-    localStorage.setItem('reactScroll', JSON.stringify(userState))
+    sessionStorage.setItem('reactScroll', JSON.stringify(userState))
 
   }
   useEffect(() => {
@@ -164,9 +164,11 @@ export default function App() {
             
       </Modal>
    
-
+      <header>
         <h1>demo: react-infinite-scroll-component</h1>
         <GrayScale defaultValue={isGray} updateGray={updateChecked} />
+      </header>
+      
         <InfiniteScroll
           dataLength={images.length}
           next={  fetchMoreData}
