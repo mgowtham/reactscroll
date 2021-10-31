@@ -1,5 +1,4 @@
-import { useEffect, useState, useMemo, createContext } from "react";
-import ReactSlider from 'react-slider'
+import { useEffect, useState } from "react";
 import "./styles.css";
 import axios from "axios";
 import CONFIG from "./config";
@@ -22,19 +21,15 @@ export default function App() {
   const [images, setImages] = useState(initialImages);
   const [page, setPage] = useState(1);
   const [width, setWidth] = useState(window.innerWidth);
-  const [imageCount, setImageCount] = useState(0);
   const [isGray, setGray] = useState(localGrayState);
   const [modalConf, setModalConf] = useState(null);
   const [blur, setBlur] = useState(0);
   const [modalGray, setmodalGray] = useState(null);
-  // let greyConst = useContext(Gray)
-  // const {updateGray } = props;
-  // const {isGray, setGray} =  greyConst;
+ 
   function updateChecked(val) {
        setGray(val)
   }
 
-   let r = isGray;
   function handleWindowSizeChange() {
       setWidth(window.innerWidth);
   }
@@ -45,32 +40,17 @@ export default function App() {
       images,
       isGray
     }
-    console.log('isGrayyy')
-    console.log(isGray)
-    console.log(images)
     sessionStorage.setItem('reactScroll', JSON.stringify(userState))
 
   }
   useEffect(() => {
       window.addEventListener('resize', handleWindowSizeChange);
-      window.addEventListener('beforeunload', () => { 
-       
-      })
-      window.removeEventListener('resize', setLocalState);
-        
-     
-       
-      return () => {
-        console.log('unmountin')
-       
-      }
+      window.addEventListener('beforeunload', setLocalState)
+      window.removeEventListener('resize', handleWindowSizeChange);
   }, []);
   
   let isMobile = (width <= 768);
 
-  let nextImageColl = useMemo(() => {
-
-  })
   
   let noOfImagesToFetch = isMobile ?  CONFIG.fetchRows * CONFIG.mobile.noOfImginRow : CONFIG.fetchRows * CONFIG.deskTop.noOfImginRow
   async function fetchImages(conf) {
@@ -81,11 +61,9 @@ export default function App() {
       }
     });
     let totalImages = [...images, ...imageColl.data]
-    setImageCount(totalImages.length);    
     setImages(totalImages);
   }
   useEffect(() => {
-    console.log("imageColl");
     let noofInitImages =  isMobile ?  CONFIG.initPageRows * CONFIG.mobile.noOfImginRow : CONFIG.initPageRows * CONFIG.deskTop.noOfImginRow
     if (localState.scrollTop) {
       window.scrollTo(0, localState.scrollTop)
@@ -94,23 +72,7 @@ export default function App() {
      }
   }, []);
 
-  // function get
-
-
- 
   
-
- 
-
-  // const factorial = useMemo(() => factorialOf(number), [number]);
-  // return (
-  //   <div className="App">
-  //     <ImageCtr images={images} />
-  //   </div>
-  // );
-//   let imgURL = useMemo(() => {
-//     return isGray ?  `${image.download_url}/?grayscale` : image.download_url 
-// }, [isGray])
   function fetchMoreData() {
 
     let nextPage = Math.floor(images.length / noOfImagesToFetch ) + 1
@@ -136,17 +98,6 @@ export default function App() {
      
      
       <div>
-      {/* <ReactSlider
-              className="horizontal-slider"
-              marks
-              markClassName="example-mark"
-              min={0}
-              max={9}
-              thumbClassName="example-thumb"
-              trackClassName="example-track"
-              renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
-          /> */}
-      
       
       <Modal
         isOpen={modalConf}

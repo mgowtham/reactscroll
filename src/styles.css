@@ -26,12 +26,19 @@ header {
   top: 150px;
 }
 
+label {
+  margin-right: 10px;
+}
+
 .infinite-scroll-component__outerdiv {
   margin-top: 150px;
 }
-
+.downloader {
+  padding-left: 36px;
+}
 .ReactModal__Content {
   top: 164px !important;
+  padding-left: 45% !important;
 }
 
 .close-modal {

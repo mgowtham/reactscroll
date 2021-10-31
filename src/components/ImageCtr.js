@@ -61,7 +61,7 @@ function ImageView(props) {
        </div>
       
       {showDownloader && 
-      <a onClick={downloadImage} download>Download image</a>
+      <a className='downloader' onClick={downloadImage} download>Download image</a>
       }
        {showDownlodLink && 
            (
