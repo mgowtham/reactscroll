@@ -1,5 +1,6 @@
 .image-view {
     width: 50%;
+    cursor: pointer;
 }
 
 .hide {

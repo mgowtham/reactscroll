@@ -2,6 +2,10 @@ import { Fragment, useContext, useMemo, useState } from "react";
 import "./ImageCtr.css";
 import Gray from "../contexts/Grayscale";
 
+import lib from "../utils/lib";
+
+const { serialize } = lib
+
 function ImageView(props) {
   const { image , blur, modalGray, showDownlodLink, showDownloader} = props;
   const [isLoading, setLoading] = useState(true)
@@ -25,17 +29,13 @@ function ImageView(props) {
   let zoomStyle = { transform: `scale(${zoom})`, left: `${(zoom - 1) * 50}%`, top: `${(zoom - 1) * 50}%`}
 
   let imgURL = useMemo(() => {
-      let url = ''
-      let downloadUrl = image && image.download_url;
-      let blurNum = Number(blur);
-      if (blurNum && showGray) {
-         return `${downloadUrl}/?grayscale&blur=${blur}` 
-      } else if (blurNum) {
-        return `${downloadUrl}/?blur=${blur}` 
-      } else if (showGray) {
-        return `${downloadUrl}/?grayscale` 
+       let blurNum = Number(blur);
+       let downloadUrl = image && image.download_url;
+      let qParam = {
+        blur: blurNum, 
+        grayscale: {addOnlyProperty: showGray} 
       }
-      return downloadUrl
+      return `${downloadUrl}/?${serialize(qParam)}`
   }, [showGray, blur])
 
   function zoomIn() {
@@ -53,7 +53,7 @@ function ImageView(props) {
     <div className='img-ctr'>
        <h4 className={isLoading ? '' : 'hide'}> Loading </h4>
        <div className='img-holder'>
-         <img style={zoomStyle} class="image-view" onLoad={() => setLoading(false)} src={imgURL} alt="Sorry" />
+         <img onClick={() => setModalConf(image)} style={zoomStyle} class="image-view" onLoad={() => setLoading(false)} src={imgURL} alt="Sorry" />
        </div>
        <div className='zoomer'>
         <button onClick={zoomIn}>+</button>
@@ -90,7 +90,6 @@ function ImageCtr(props) {
       <div key={i} className="img-container-li">
         <ImageView modalGray={null} image={image} />
         <div>{image.author}</div>
-        <button onClick={() => setModalConf(image)}>Open in modal</button>
 
       </div>
     )
